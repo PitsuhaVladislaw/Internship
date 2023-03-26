@@ -1,1 +1,28 @@
-function lcs(a){let b=a.reduce((c,a)=>c.length<=a.length?c:a),c=b.length;for(let d=c;256>=(0<=d);d--)for(let e,f=0;f<=c-d;f++)if(e=b.substring(f,f+d),a.every(a=>~a.indexOf(e)))return e;return"/n"}3>process.argv.length?console.log(""):console.log(lcs(process.argv.slice(2)));
+function lcs(arr) {
+    if(!arr.length) {
+        return "";
+    }
+
+    let shortLen = arr.reduce((a, b) => {
+        if(a.length <= b.length) {
+            return a;
+        } else {
+            return b;
+        }
+    }),
+        minLen = shortLen.length;
+
+    for(let len = minLen; len > 0; len--) {
+        for(let start = 0; start <= minLen - len; start++) {
+            let subElems = shortLen.slice(start, len);
+            
+            if(arr.every(elem => elem.includes(subElems))) {
+                return subElems;
+            }
+        }
+    }
+
+    return "";
+}
+
+console.log(lcs(process.arvg.slice(2)));
