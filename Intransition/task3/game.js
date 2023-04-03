@@ -1,10 +1,10 @@
-let yourChoice;
+let playerChoice;
 let computerChoice;
 const arrWays = [1, 2, 3, 4, 5, 0, '?'];
 
-function gameRPS() {
+function game(choice) {
 
-    console.log('>java -jar game.jar rock paper scissors lizard Spock');
+    console.log('>javascript -jar game.jar rock paper scissors lizard Spock');
     console.log('Available moves:');
 
     for(let way of arrWays) {
@@ -34,11 +34,11 @@ function gameRPS() {
         }
     }
 
-    yourChoice = process.argv
-
-    console.log('Enter your move: ' + yourChoice);
-    computerChoice();
+    makePlayerChoice(choice);
+    console.log('Enter player move: ' + playerChoice);
+    computerTurn();
     console.log('Computer move: ' + computerChoice);
+    console.log(checkWinner());
 }
 
 function computerTurn() {
@@ -58,4 +58,28 @@ function computerTurn() {
     }
 }
 
-gameRPS();
+function makePlayerChoice(array) {
+
+    if(array[0] === "rock" || array[0] === '1') {
+        playerChoice = "rock";
+    } else if(array[0] === "paper" || array[0] === '2') {
+        playerChoice = "paper";
+    } else if(array[0] === "scissors" || array[0] === '3') {
+        playerChoice = "scissors";
+    }
+}
+
+function checkWinner() {
+    
+    if(computerChoice === playerChoice) {
+        return "Draw, let's fight again!";
+    } else if(computerChoice === "rock") {
+        return (playerChoice === "paper") ? "You win!" : "You lose!";
+    } else if(computerChoice === "paper") {
+        return (playerChoice === "scissors") ? "You win!" : "You lose!";
+    } else if(computerChoice === "scissors") {
+        return (playerChoice === "rock") ? "You win!" : "You lose!";
+    }
+}
+
+game(process.argv.slice(2));
